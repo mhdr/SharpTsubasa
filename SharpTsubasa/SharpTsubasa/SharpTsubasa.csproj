@@ -9,6 +9,8 @@
 
     <ItemGroup>
       <None Remove="config.ini" />
+      <None Remove="templates\0001.jpg" />
+      <None Remove="templates\0001.png" />
     </ItemGroup>
 
     <ItemGroup>
@@ -20,6 +22,9 @@
 
     <ItemGroup>
       <Content Include="config.ini">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="templates\0001.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

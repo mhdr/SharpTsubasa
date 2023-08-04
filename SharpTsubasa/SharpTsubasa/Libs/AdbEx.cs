@@ -2,14 +2,15 @@
 
 namespace SharpTsubasa.Libs;
 
-public class Worker
+public class AdbEx
 {
-    public static Task RunAdb(string adbPath)
+    public static Task RunAdb()
     {
+        var config = Config.Load();
         if (!AdbServer.Instance.GetStatus().IsRunning)
         {
             AdbServer server = new AdbServer();
-            StartServerResult result = server.StartServer(adbPath, false);
+            StartServerResult result = server.StartServer(config.Adb, false);
             if (result != StartServerResult.Started)
             {
                 Console.WriteLine("Can't start adb server");
