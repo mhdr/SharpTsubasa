@@ -17,6 +17,12 @@ public class AdbEx
         Device = device;
     }
 
+    public async Task<bool> IsAppRunning()
+    {
+        var result = await Client.IsAppRunningAsync(Device, "com.klab.captain283.global");
+        return result;
+    }
+
     public static Task RunAdb()
     {
         var config = Config.Load();

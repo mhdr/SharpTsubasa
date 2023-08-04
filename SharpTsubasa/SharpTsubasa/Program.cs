@@ -17,7 +17,6 @@ if (config.NoxAttach == "0")
     await Task.Delay(1000 * 60);
     Console.WriteLine("running Captain Tsubasa app...");
     nox.RunApp();
-    await Task.Delay(1000 * 60);
 }
 
 var client = new AdbClient();
@@ -53,98 +52,106 @@ var adbEx = new AdbEx(client, device);
 
 while (shouldRun)
 {
+    if (!await adbEx.IsAppRunning())
+    {
+        nox.RunApp();
+        await Task.Delay(5000);
+    }
+
     FindResult result = null;
     byte[] screenshot = null;
 
-    // captain tsubasa dream team logo on welcome screen page
-    //await adbEx.Screenshot();
     screenshot = await adbEx.Screenshot2();
+    
+    // captain tsubasa dream team logo on welcome screen page
+    
     result = CvEx.Find2(screenshot, "0002");
     await adbEx.Click(result, 4000);
+    if (result.IsFound) continue;
 
     // story mode on first page
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0001");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // story mode on first page
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0003");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // search for completion mode normal
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0005");
     if (result.IsFound)
     {
-        result = CvEx.Find2(screenshot, "0004",0.8);
+        result = CvEx.Find2(screenshot, "0004", 0.8);
         await adbEx.Click(result);
+        if (result.IsFound) continue;
     }
 
     // normal button
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0006");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // solo play
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0008");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // play match button
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0007");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // FP on select friend page
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0009");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // kick off button
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0010");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // you win after match
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0011");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // dreamball - after match - first clear reward - after demo
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0012");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // breakdown after match
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0013");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // go to scenario list - after match
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0014");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // retry button
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0015");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // story demo
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0016");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // menu button on story demo
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0017");
     await adbEx.Click(result);
-    
+    if (result.IsFound) continue;
+
     // skip button on story demo
-    screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0018");
     await adbEx.Click(result);
+    if (result.IsFound) continue;
 
     await Task.Delay(1);
 }
