@@ -66,6 +66,65 @@ while (shouldRun)
     screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0001");
     await adbEx.Click(result);
+    
+    // story mode on first page
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0003");
+    await adbEx.Click(result);
+    
+    // search for completion mode normal
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0005");
+    if (result.IsFound)
+    {
+        result = CvEx.Find2(screenshot, "0004",0.8);
+        await adbEx.Click(result);
+    }
+
+    // normal button
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0006");
+    await adbEx.Click(result);
+    
+    // solo play
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0008");
+    await adbEx.Click(result);
+    
+    // play match button
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0007");
+    await adbEx.Click(result);
+    
+    // FP on select friend page
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0009");
+    await adbEx.Click(result);
+    
+    // kick off button
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0010");
+    await adbEx.Click(result);
+    
+    // you win after match
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0011");
+    await adbEx.Click(result);
+    
+    // dreamball after match - first clear reward
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0012");
+    await adbEx.Click(result);
+    
+    // breakdown after match
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0013");
+    await adbEx.Click(result);
+    
+    // go to scenario list - after match
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0014");
+    await adbEx.Click(result);
 
     await Task.Delay(1);
 }
