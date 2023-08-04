@@ -9,6 +9,8 @@ public class AdbEx
     public AdbClient Client { get; set; }
     public DeviceData Device { get; set; }
 
+    public Framebuffer? Framebuffer { get; set; }
+
     public AdbEx(AdbClient client, DeviceData device)
     {
         Client = client;
@@ -41,8 +43,32 @@ public class AdbEx
 
     public async Task Screenshot()
     {
-        Image screenshot = (Image)await Client.GetFrameBufferAsync(Device, CancellationToken.None);
-        screenshot.Save("screenshot.png", ImageFormat.Png);
+        if (Framebuffer == null)
+        {
+            Framebuffer = await Client.GetFrameBufferAsync(Device, CancellationToken.None);
+        }
+        else
+        {
+            await Framebuffer.RefreshAsync(false);
+        }
+
+        Framebuffer.ToImage().Save("screenshot.png", ImageFormat.Png);
+    }
+
+    public async Task<byte[]> Screenshot2()
+    {
+        if (Framebuffer == null)
+        {
+            Framebuffer = await Client.GetFrameBufferAsync(Device, CancellationToken.None);
+        }
+        else
+        {
+            await Framebuffer.RefreshAsync(false);
+        }
+
+        var stream = new MemoryStream();
+        Framebuffer.ToImage().Save(stream, ImageFormat.Png);
+        return stream.ToArray();
     }
 
     public async Task Click(FindResult result, int wait = 2000)

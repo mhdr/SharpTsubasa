@@ -54,15 +54,17 @@ var adbEx = new AdbEx(client, device);
 while (shouldRun)
 {
     FindResult result = null;
+    byte[] screenshot = null;
 
     // captain tsubasa dream team logo on welcome screen page
-    await adbEx.Screenshot();
-    result = CvEx.Find("0002");
-    await adbEx.Click(result);
+    //await adbEx.Screenshot();
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0002");
+    await adbEx.Click(result, 4000);
 
     // story mode on first page
-    await adbEx.Screenshot();
-    result = CvEx.Find("0001");
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0001");
     await adbEx.Click(result);
 
     await Task.Delay(1);
