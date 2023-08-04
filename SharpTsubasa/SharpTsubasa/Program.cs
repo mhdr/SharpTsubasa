@@ -111,7 +111,7 @@ while (shouldRun)
     result = CvEx.Find2(screenshot, "0011");
     await adbEx.Click(result);
     
-    // dreamball after match - first clear reward
+    // dreamball - after match - first clear reward - after demo
     screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0012");
     await adbEx.Click(result);
@@ -124,6 +124,26 @@ while (shouldRun)
     // go to scenario list - after match
     screenshot = await adbEx.Screenshot2();
     result = CvEx.Find2(screenshot, "0014");
+    await adbEx.Click(result);
+    
+    // retry button
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0015");
+    await adbEx.Click(result);
+    
+    // story demo
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0016");
+    await adbEx.Click(result);
+    
+    // menu button on story demo
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0017");
+    await adbEx.Click(result);
+    
+    // skip button on story demo
+    screenshot = await adbEx.Screenshot2();
+    result = CvEx.Find2(screenshot, "0018");
     await adbEx.Click(result);
 
     await Task.Delay(1);
