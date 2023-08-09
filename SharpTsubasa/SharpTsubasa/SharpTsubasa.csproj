@@ -28,6 +28,9 @@
         <None Remove="templates\0016.png" />
         <None Remove="templates\0017.png" />
         <None Remove="templates\0018.png" />
+        <None Remove="templates\0019.png" />
+        <None Remove="templates\0020.png" />
+        <None Remove="templates\0021.png" />
     </ItemGroup>
 
     <ItemGroup>
@@ -93,6 +96,15 @@
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Include="templates\0018.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="templates\0019.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="templates\0020.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="templates\0021.png">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>

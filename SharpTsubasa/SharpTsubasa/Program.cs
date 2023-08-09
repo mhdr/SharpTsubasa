@@ -152,6 +152,21 @@ while (shouldRun)
     result = CvEx.Find2(screenshot, "0018");
     await adbEx.Click(result);
     if (result.IsFound) continue;
+    
+    // ok button
+    result = CvEx.Find2(screenshot, "0019");
+    await adbEx.Click(result);
+    if (result.IsFound) continue;
+    
+    // close button
+    result = CvEx.Find2(screenshot, "0020");
+    await adbEx.Click(result);
+    if (result.IsFound) continue;
+    
+    // resume match button while playing
+    result = CvEx.Find2(screenshot, "0021");
+    await adbEx.Click(result);
+    if (result.IsFound) continue;
 
     await Task.Delay(1);
 }
