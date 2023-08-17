@@ -1,3 +1,3 @@
 git clean -fd
-git reset --hard main
-git pull main
+git reset --hard
+git pull
