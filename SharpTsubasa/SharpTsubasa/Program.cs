@@ -62,9 +62,9 @@ while (shouldRun)
     byte[] screenshot = null;
 
     screenshot = await adbEx.Screenshot2();
-    
+
     // captain tsubasa dream team logo on welcome screen page
-    
+
     result = CvEx.Find2(screenshot, "0002");
     await adbEx.Click(result, 4000);
     if (result.IsFound) continue;
@@ -83,8 +83,13 @@ while (shouldRun)
     result = CvEx.Find2(screenshot, "0005");
     if (result.IsFound)
     {
-        result = CvEx.Find2(screenshot, "0004", 0.8);
+        // find story which is ready to be played in normal mode 
+        result = CvEx.Find2(screenshot, "0004");
         await adbEx.Click(result);
+        if (result.IsFound) continue;
+
+        // if we can't find any story swpie to find another one
+        await adbEx.Swipe();
         if (result.IsFound) continue;
     }
 
@@ -152,19 +157,29 @@ while (shouldRun)
     result = CvEx.Find2(screenshot, "0018");
     await adbEx.Click(result);
     if (result.IsFound) continue;
-    
+
     // ok button
     result = CvEx.Find2(screenshot, "0019");
     await adbEx.Click(result);
     if (result.IsFound) continue;
-    
+
     // close button
     result = CvEx.Find2(screenshot, "0020");
     await adbEx.Click(result);
     if (result.IsFound) continue;
-    
+
     // resume match button while playing
     result = CvEx.Find2(screenshot, "0021");
+    await adbEx.Click(result);
+    if (result.IsFound) continue;
+    
+    // restore button - recovery energy dialog
+    result = CvEx.Find2(screenshot, "0022");
+    await adbEx.Click(result);
+    if (result.IsFound) continue;
+
+    // rank up
+    result = CvEx.Find2(screenshot, "0023");
     await adbEx.Click(result);
     if (result.IsFound) continue;
 
