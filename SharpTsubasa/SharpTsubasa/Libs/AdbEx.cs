@@ -77,7 +77,7 @@ public class AdbEx
         return stream.ToArray();
     }
 
-    public async Task Click(FindResult result, int wait = 2000)
+    public async Task Click(FindResult result, int wait = 200)
     {
         if (result.IsFound)
         {
@@ -86,7 +86,7 @@ public class AdbEx
         }
     }
 
-    public async Task Swipe(int x1 = 480, int y1 = 270, int x2 = 400, int y2 = 270, int speed = 100,int wait = 2000)
+    public async Task Swipe(int x1 = 480, int y1 = 270, int x2 = 300, int y2 = 270, int speed = 100,int wait = 2000)
     {
         await Client.SwipeAsync(Device, x1, y1, x2, y2, speed); // Swipe from (480;270) to (400;270) on 100 ms
         await Task.Delay(wait);
