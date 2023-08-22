@@ -176,8 +176,13 @@ while (shouldRun)
     result = CvEx.Find2(screenshot, "0023");
     await adbEx.Click(result);
     if (result.IsFound) continue;
-    
-    
+
+    // cancel button - add friend
+    result = CvEx.Find2(screenshot, "0024");
+    await adbEx.Click(result);
+    if (result.IsFound) continue;
+
+
     if (!await adbEx.IsAppRunning())
     {
         nox.RunApp();
