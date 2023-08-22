@@ -52,12 +52,6 @@ var adbEx = new AdbEx(client, device);
 
 while (shouldRun)
 {
-    if (!await adbEx.IsAppRunning())
-    {
-        nox.RunApp();
-        await Task.Delay(5000);
-    }
-
     FindResult result = null;
     byte[] screenshot = null;
 
@@ -182,6 +176,13 @@ while (shouldRun)
     result = CvEx.Find2(screenshot, "0023");
     await adbEx.Click(result);
     if (result.IsFound) continue;
+    
+    
+    if (!await adbEx.IsAppRunning())
+    {
+        nox.RunApp();
+        await Task.Delay(5000);
+    }
 
     await Task.Delay(1);
 }
