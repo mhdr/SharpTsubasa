@@ -77,7 +77,7 @@ public class AdbEx
         return stream.ToArray();
     }
 
-    public async Task Click(FindResult result, int wait = 200)
+    public async Task Click(FindResult result, int wait = 500)
     {
         if (result.IsFound)
         {
