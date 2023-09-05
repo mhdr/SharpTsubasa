@@ -182,6 +182,11 @@ while (shouldRun)
     await adbEx.Click(result);
     if (result.IsFound) continue;
 
+    // resume match button
+    result = CvEx.Find2(screenshot, "0025");
+    await adbEx.Click(result);
+    if (result.IsFound) continue;
+
 
     if (!await adbEx.IsAppRunning())
     {
