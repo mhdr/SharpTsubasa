@@ -12,11 +12,6 @@ public class Config
 
     public string NoxPath { get; set; }
     public string NoxAdb { get; set; }
-    public string NoxNox { get; set; }
-    public string NoxInstance { get; set; }
-    public string NoxAttach { get; set; }
-
-    public string Port { get; set; }
 
     #endregion
 
@@ -41,20 +36,10 @@ public class Config
 
         var parser = new FileIniDataParser();
         IniData data = parser.ReadFile("Config.ini");
-        instance.NoxPath = data["Nox"]["Path"];
-        instance.NoxAdb = data["Nox"]["Adb"];
-        instance.NoxNox = data["Nox"]["Nox"];
-        instance.NoxInstance = data["Nox"]["Instance"];
-        instance.NoxAttach = data["Nox"]["Attach"];
-        instance.Port = data["Nox"]["Port"];
-
-        // Get the location of the currently running executable
-        string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        string platformToolsPath = Path.Combine(path, "platform-tools");
-
-        instance.Adb = Path.Combine(platformToolsPath, "adb.exe");
-        instance.Nox = Path.Combine(instance.NoxPath, instance.NoxNox);
-
+        instance.NoxPath = data["Android"]["Path"];
+        instance.NoxAdb = data["Android"]["Adb"];
+        
+        instance.Adb = Path.Combine(instance.NoxPath, instance.NoxAdb);
         return instance;
     }
 }

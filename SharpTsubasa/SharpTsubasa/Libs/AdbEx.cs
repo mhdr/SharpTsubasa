@@ -86,7 +86,7 @@ public class AdbEx
         }
     }
 
-    public async Task Swipe(int x1 = 480, int y1 = 270, int x2 = 300, int y2 = 270, int speed = 100, int wait = 2000)
+    public async Task Swipe(int x1, int y1, int x2, int y2, int speed = 100, int wait = 2000)
     {
         await Client.SwipeAsync(Device, x1, y1, x2, y2, speed); // Swipe from (480;270) to (400;270) on 100 ms
         await Task.Delay(wait);

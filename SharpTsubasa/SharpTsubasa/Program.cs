@@ -5,24 +5,14 @@ using SharpTsubasa.Libs;
 
 var config = Config.Load();
 
-var nox = new NoxEx();
 bool shouldRun = true;
 
 await AdbEx.RunAdb();
 
-if (config.NoxAttach == "0")
-{
-    Console.WriteLine("running nox...");
-    nox.RunNox();
-    await Task.Delay(1000 * 60);
-    Console.WriteLine("running Captain Tsubasa app...");
-    nox.RunApp();
-}
-
 var client = new AdbClient();
-var d = $"localhost:{config.Port}";
-// await client.ConnectAsync(device.Serial);
-await client.ConnectAsync(d);
+// var d = $"localhost:{config.Port}";
+// // await client.ConnectAsync(device.Serial);
+// await client.ConnectAsync(d);
 var devices = await client.GetDevicesAsync();
 var device = devices.FirstOrDefault();
 
@@ -33,23 +23,11 @@ if (device == null)
 }
 
 // var d = $"localhost:{config.Port}";
-// // await client.ConnectAsync(device.Serial);
+await client.ConnectAsync(device.Serial);
 // await client.ConnectAsync(d);
 
 Console.WriteLine("start processing...");
-Console.CancelKeyPress += (sender, eventArgs) =>
-{
-    if (config.NoxAttach == "0")
-    {
-        Console.WriteLine("killing nox...");
-    }
-    else
-    {
-        Console.WriteLine("Detaching nox...");
-    }
-
-    shouldRun = false;
-};
+Console.CancelKeyPress += (sender, eventArgs) => { shouldRun = false; };
 
 
 var adbEx = new AdbEx(client, device);
@@ -67,10 +45,25 @@ while (shouldRun)
     await adbEx.Click(result, 4000);
     if (result.IsFound) continue;
 
-    // story mode on first page
-    result = CvEx.Find2(screenshot, "0001");
-    await adbEx.Click(result);
-    if (result.IsFound) continue;
+    // app home page
+    result = CvEx.Find2(screenshot, "0028");
+    if (result.IsFound)
+    {
+        // story mode on first page
+        result = CvEx.Find2(screenshot, "0001");
+        await adbEx.Click(result);
+        if (result.IsFound)
+        {
+            continue;
+        }
+        else
+        {
+            await adbEx.Swipe(700, 250, 700, 150);
+            await Task.Delay(1000);
+            continue;
+        }
+    }
+
 
     // story mode on first page
     result = CvEx.Find2(screenshot, "0003");
@@ -87,7 +80,7 @@ while (shouldRun)
         if (result.IsFound) continue;
 
         // if we can't find any story swpie to find another one
-        await adbEx.Swipe();
+        await adbEx.Swipe(480,270,300,270);
         if (result.IsFound) continue;
     }
 
@@ -190,7 +183,16 @@ while (shouldRun)
     result = CvEx.Find2(screenshot, "0025");
     await adbEx.Click(result);
     if (result.IsFound) continue;
+    
+    // new account - guide
+    result = CvEx.Find2(screenshot, "0026");
+    await adbEx.Click(result);
+    if (result.IsFound) continue;
 
+    // got it button
+    result = CvEx.Find2(screenshot, "0027");
+    await adbEx.Click(result);
+    if (result.IsFound) continue;
 
     if (!await adbEx.IsAppRunning())
     {
@@ -199,13 +201,6 @@ while (shouldRun)
     }
 
     await Task.Delay(1);
-}
-
-if (config.NoxAttach == "0")
-{
-    nox.CloseNox();
-    await Task.Delay(1000 * 10);
-    nox.KillNox();
 }
 
 await adbEx.Kill();
