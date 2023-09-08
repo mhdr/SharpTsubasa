@@ -20,9 +20,11 @@ if (config.NoxAttach == "0")
 }
 
 var client = new AdbClient();
+var d = $"localhost:{config.Port}";
+// await client.ConnectAsync(device.Serial);
+await client.ConnectAsync(d);
 var devices = await client.GetDevicesAsync();
 var device = devices.FirstOrDefault();
-
 
 if (device == null)
 {
@@ -30,7 +32,9 @@ if (device == null)
     return;
 }
 
-await client.ConnectAsync(device.Serial);
+// var d = $"localhost:{config.Port}";
+// // await client.ConnectAsync(device.Serial);
+// await client.ConnectAsync(d);
 
 Console.WriteLine("start processing...");
 Console.CancelKeyPress += (sender, eventArgs) =>
@@ -166,7 +170,7 @@ while (shouldRun)
     result = CvEx.Find2(screenshot, "0021");
     await adbEx.Click(result);
     if (result.IsFound) continue;
-    
+
     // restore button - recovery energy dialog
     result = CvEx.Find2(screenshot, "0022");
     await adbEx.Click(result);
@@ -190,7 +194,7 @@ while (shouldRun)
 
     if (!await adbEx.IsAppRunning())
     {
-        nox.RunApp();
+        await adbEx.RunApp();
         await Task.Delay(5000);
     }
 
@@ -204,4 +208,5 @@ if (config.NoxAttach == "0")
     nox.KillNox();
 }
 
+await adbEx.Kill();
 Console.WriteLine("exit bot.");

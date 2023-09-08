@@ -29,7 +29,7 @@ public class AdbEx
         if (!AdbServer.Instance.GetStatus().IsRunning)
         {
             AdbServer server = new AdbServer();
-            StartServerResult result = server.StartServer(config.Adb, false);
+            StartServerResult result = server.StartServer(config.Adb, true);
             if (result != StartServerResult.Started)
             {
                 Console.WriteLine("Can't start adb server");
@@ -86,9 +86,20 @@ public class AdbEx
         }
     }
 
-    public async Task Swipe(int x1 = 480, int y1 = 270, int x2 = 300, int y2 = 270, int speed = 100,int wait = 2000)
+    public async Task Swipe(int x1 = 480, int y1 = 270, int x2 = 300, int y2 = 270, int speed = 100, int wait = 2000)
     {
         await Client.SwipeAsync(Device, x1, y1, x2, y2, speed); // Swipe from (480;270) to (400;270) on 100 ms
         await Task.Delay(wait);
+    }
+
+    public async Task Kill()
+    {
+        await Client.KillAdbAsync();
+    }
+
+    public async Task RunApp()
+    {
+        var packageName = "com.klab.captain283.global";
+        await Client.StartAppAsync(Device, packageName);
     }
 }

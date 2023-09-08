@@ -1,4 +1,5 @@
-﻿using IniParser;
+﻿using System.Reflection;
+using IniParser;
 using IniParser.Model;
 
 namespace SharpTsubasa.Libs;
@@ -14,6 +15,8 @@ public class Config
     public string NoxNox { get; set; }
     public string NoxInstance { get; set; }
     public string NoxAttach { get; set; }
+
+    public string Port { get; set; }
 
     #endregion
 
@@ -43,7 +46,13 @@ public class Config
         instance.NoxNox = data["Nox"]["Nox"];
         instance.NoxInstance = data["Nox"]["Instance"];
         instance.NoxAttach = data["Nox"]["Attach"];
-        instance.Adb = Path.Combine(instance.NoxPath, instance.NoxAdb);
+        instance.Port = data["Nox"]["Port"];
+
+        // Get the location of the currently running executable
+        string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        string platformToolsPath = Path.Combine(path, "platform-tools");
+
+        instance.Adb = Path.Combine(platformToolsPath, "adb.exe");
         instance.Nox = Path.Combine(instance.NoxPath, instance.NoxNox);
 
         return instance;
